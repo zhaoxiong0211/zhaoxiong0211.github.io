@@ -1,6 +1,6 @@
 var data_graph1 = new Array();
                 $.ajax( {  
-                    url : "./Dashboard_files/export.xml",  
+                    url : "./Dashboard_files/export_lily.xml",  
                     dataType : "xml",  
                     async : false,
                     error : function(xml) {  
