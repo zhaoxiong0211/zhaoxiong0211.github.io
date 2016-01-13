@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://v3.bootcss.com/examples/dashboard/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./Dashboard_files/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./Dashboard_files/dashboard.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./Dashboard_files/ie-emulation-modes-warning.js"></script>
+    <script type="text/javascript" src="./Dashboard_files/loadxmldoc.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" type="application/javascript"></script>
+    <script src="./Dashboard_files/cal-heatmap-master/cal-heatmap.js" type="application/javascript"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+    body
+    {
+      font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+ /*     background-color: 3;*/
+    }
+    svg {
+      font-size: 8px;
+  /*font: 10px sans-serif;*/
+}
+
+.area {
+  /*ill: steelblue;*/
+  fill: #d9534f;
+  fill: url(#temperature-gradient);
+      fill-opacity: 0.6;
+  clip-path: url(#clip);
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+    .x.axis path {
+      display: none;
+    }
+
+    .line {
+      fill: none;
+/*      stroke: #d9534f;
+*/      stroke: none;
+      stroke-width: 1.5px;
+    }
+/*    .area {
+      fill: #d9534f;
+      fill: url(#temperature-gradient);
+      fill-opacity: 0.2;
+    }*/
+    .overlay {
+      fill: none;
+      pointer-events: all;
+    }
+
+    .focus circle {
+      fill: none;
+      stroke: #d9534f;
+      stroke-width: 1.5px;
+    }
+
+    .bar {
+  fill: #d9534f;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+#focus_tooltip
+{
+  font-weight: bold;
+  font-size: 12px;
+  position: fixed;
+  width:100px;
+  text-align: left;
+  left: 10px;
+  top:-10px;
+}
+.subdomain-text
+{
+  fill: #fff;
+}
+#bar_text{
+  font-size: 12px;
+}
+
+
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+#pie_text{
+  font-size: 10px;
+  fill: #fff;
+}
+
+#tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+}
+#tooltip.hidden {
+    opacity: 0;
+}
+#tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="http://v3.bootcss.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">Line Chart</h2>
+
+          <div class="row placeholders">
+            <div class="col-xs-24 col-sm-12 placeholder" id="graph1" align="left">
+            </div>
+          </div>
+
+          <h2 class="sub-header">Calendar Heat Map</h2>
+                    <div class="row placeholders">
+            <div class="col-xs-24 col-sm-12 placeholder" id="cal-heatmap"></div>
+              <div class="col-xs-24 col-sm-12 placeholder" >
+               <button ttype="button" class="btn btn-danger" id="cal-heatmap-PreviousDomain-selector" style="float: left; margin-top: -30px">Previous</button>
+          <button type="button" class="btn btn-danger" id="cal-heatmap-NextDomain-selector" style="float: left; margin-left: 10px; margin-top: -30px" >Next</button>
+        </div>
+          </div>
+
+                    <div class="row placeholders">
+            <div class="col-xs-12 col-sm-6 placeholder" id="weekBarChart">
+            <h3 class="sub-header" style="text-align:left;">Bar Chart</h3></div>
+
+          </div>
+
+<div class="row placeholders">
+                        <div class="col-xs-12 col-sm-6 placeholder" id="pieChart">
+                          <h3 class="sub-header" style="text-align:left;">Pie Chart</h3></div>
+                          <div class="col-xs-12 col-sm-6 placeholder" id="pieChart_text"></div>
+
+          </div>
+<!--             <h2 class="sub-header">Fourth title</h2>
+              <div class="row placeholders">
+          </div> -->
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./Dashboard_files/jquery.min.js"></script>
+    <script src="./Dashboard_files/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="./Dashboard_files/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./Dashboard_files/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+      xmlDoc=loadXMLDoc("./Dashboard_files/export.xml");
+    </script>
+    <script src="./Dashboard_files/tip.js"></script>
+    <script src="./Dashboard_files/appear.js"></script>
+    <script src="./Dashboard_files/graph1.js"></script>
+    <script src="./Dashboard_files/graph2.js"></script>
+    <script src="./Dashboard_files/graph3.js"></script>
+    <script src="./Dashboard_files/graph4.js"></script>
+
+<script type="text/javascript">(function () {
+        return window.SIG_EXT = {};
+      })()</script></body></html>
