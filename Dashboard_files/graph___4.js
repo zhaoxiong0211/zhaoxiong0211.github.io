@@ -30,10 +30,11 @@ for (var i=0; i<daylySteps.length;i++){
 };
 
 ////////////////////
-
-
-var width_4 = 300,
-    height_4 = 300,
+draw_4();
+function draw_4(){
+  d3.select("#svg_graph4").remove();
+var width_4 = document.getElementById("pieChart").offsetWidth*0.8,
+    height_4 = document.getElementById("pieChart").offsetWidth,
     radius_4 = Math.min(width_4, height_4) / 2;
 
 var τ = 2 * Math.PI; // http://tauday.com/tau-manifesto
@@ -62,6 +63,7 @@ var pie_4 = d3.layout.pie()
 angle_data = pie_4(daylySteps_data);
 
 var svg_4 = d3.select("#pieChart").append("svg")
+.attr("id", "svg_graph4")
     .attr("width", width_4)
     .attr("height", height_4)
   .append("g")
@@ -183,6 +185,7 @@ function arcTween(transition, newAngle) {
 var div_4 = d3.select("#pieChart").append("div")
     .attr("class", "tooltip")
     .style("display", "none");
+  }
 
 // function pieChartClick(d) {
 // 	console.log(d);

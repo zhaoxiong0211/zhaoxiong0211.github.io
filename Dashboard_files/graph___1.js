@@ -43,13 +43,19 @@ for(var i=min_date_index; i<data_graph1.length; i++)
     })
 }
 console.log(data_new)
+draw_1();
 //////////////////////////////////////////////////////
+function draw_1(){
+  d3.select("#svg_graph1").remove();
+var graph1_width = document.getElementById("graph1").offsetWidth-40;
+// var graph1_width = 900;
 
-var margin = {top: 10, right: 10, bottom: 100, left: 40},
-    margin2 = {top: 400, right: 10, bottom: 40, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom,
-    height2 = 500 - margin2.top - margin2.bottom;
+
+var margin = {top: 10, right: 10, bottom: graph1_width*0.15, left: 40},
+    margin2 = {top: graph1_width*0.6*0.8, right: 10, bottom: graph1_width*0.15*0.5, left: 40},
+    width = graph1_width - margin.left - margin.right,
+    height = graph1_width*0.6 - margin.top - margin.bottom,
+    height2 = graph1_width*0.6 - margin2.top - margin2.bottom;
 
 // var parseDate = d3.time.format("%Y-%m-%d").parse;
 var bisectDate = d3.bisector(function(d) { return d.date; }).left;
@@ -60,8 +66,8 @@ var x = d3.time.scale().range([0, width]),
     y = d3.scale.linear().range([height, 0]),
     y2 = d3.scale.linear().range([height2, 0]);
 
-var xAxis = d3.svg.axis().scale(x).orient("bottom"),
-    xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
+var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(d3.time.format("%d-%m")),
+    xAxis2 = d3.svg.axis().scale(x2).orient("bottom").tickFormat(d3.time.format("%m-%Y")),
     yAxis = d3.svg.axis().scale(y).orient("left");
 
 var brush = d3.svg.brush()
@@ -87,6 +93,7 @@ var area2 = d3.svg.area()
 
 var svg = d3.select("#graph1")
     .append("svg")
+    .attr("id","svg_graph1")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -204,6 +211,10 @@ focus_tem.append("path")
       .attr("y", -6)
       .attr("height", height2 + 7);
 
+    brush.extent([new Date(data_new[data_new.length-31].date), new Date(data_new[data_new.length-1].date)]);
+    context.select('.brush').call(brush);
+        brushed();
+
   function mousemove() {
     var x0 = x.invert(d3.mouse(this)[0]),
         i = bisectDate(data, x0, 1),
@@ -227,4 +238,12 @@ focus_tem.append("path")
   focus_tem.select(".area").attr("d", area);
   focus_tem.select(".line").attr("d", line);
   focus_tem.select(".x.axis").call(xAxis);
+}
+}
+
+function resize(){
+draw_1();
+draw_2();
+draw_3();
+draw_4();
 }

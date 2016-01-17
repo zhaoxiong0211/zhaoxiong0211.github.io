@@ -1,7 +1,7 @@
 var weekday_summary = [];
 var weekday_count = [];
 
-var weekday_index = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var weekday_index = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 var weekday_data = [];
 for (var i=0; i<data_new.length;i++)
@@ -29,11 +29,13 @@ for (var i=0; i<weekday_summary.length;i++)
 	})
 }
 
+draw_3();
 ///////////////////////////////////
-
-var margin_3 = {top: 20, right: 40, bottom: 30, left: 10},
-    width_3 = 500 - margin_3.left - margin_3.right,
-    height_3 = 350 - margin_3.top - margin_3.bottom;
+function draw_3(){
+  d3.select("#svg_graph3").remove();
+var margin_3 = {top: 20, right: 20, bottom: 30, left: 10},
+    width_3 = document.getElementById("pieChart").offsetWidth - margin_3.left - margin_3.right,
+    height_3 = document.getElementById("pieChart").offsetWidth - margin_3.top - margin_3.bottom;
 
 var x_3 = d3.scale.ordinal()
     .rangeRoundBands([0, width_3], .1);
@@ -58,10 +60,11 @@ var tip = d3.tip()
   })
 
 var svg_3 = d3.select("#weekBarChart").append("svg")
+.attr("id", "svg_graph3")
     .attr("width", width_3 + margin_3.left + margin_3.right)
     .attr("height", height_3 + margin_3.top + margin_3.bottom)
   .append("g")
-    .attr("transform", "translate(" + 0 + "," + margin.top + ")");
+    .attr("transform", "translate(" + 0 + "," + margin_3.top + ")");
 
 svg_3.call(tip);
 
@@ -94,3 +97,4 @@ svg_3.call(tip);
       .attr("height", function(d) { return height_3 - y_3(d.average); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
+    }
