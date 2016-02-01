@@ -1,0 +1,51 @@
+html,
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Scale canvas with resize attribute to full size */
+canvas[resize] {
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+  font-family: 'Open Sans', sans-serif;
+  position: absolute;
+  top: 35%;
+  left: 20%;
+}
+
+.butGroup {
+	width:100%;
+}
+
+.butGroup button {
+	font-size:12px;
+	font-style: italic;
+	background-color: transparent;
+	color:#777;
+	width:40%;
+	margin-bottom:10px;
+	border-radius: 0px;
+}
+
+.butGroup button:active,
+.butGroup button:hover{
+	background-color: transparent;
+	color:#777;
+	border-color:#5bc0de;
+}
+
+.butGroup button:focus {
+	background-color: transparent;
+	color:#555;
+	border-color:#5bc0de;
+}
+
+.butGroup button:active:hover,
+.butGroup button:active:focus {
+	background-color: transparent;
+}
