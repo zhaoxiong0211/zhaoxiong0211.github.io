@@ -36,8 +36,6 @@ function draw_4(){
 var width_4 = document.getElementById("pieChart").offsetWidth,
     height_4 = document.getElementById("pieChart").offsetWidth,
     radius_4 = Math.min(width_4, height_4) / 2;
-
-document.getElementById("pieChart").style.padding = 0;
 console.log(width_4,height_4,radius_4);
 var τ = 2 * Math.PI; // http://tauday.com/tau-manifesto
 
@@ -50,13 +48,13 @@ var color_4 = d3.scale.ordinal()
 var color_list = ["#f1d2bc", "#eaab8d", "#e69073", "#d9534f"]
 
 var arc_4 = d3.svg.arc()
-    .outerRadius(radius_4 - 20)
+    .outerRadius(radius_4 - 10)
     .innerRadius(80)
     .startAngle(0);
 
 var labelArc_4 = d3.svg.arc()
-    .outerRadius(radius_4 - 40)
-    .innerRadius(radius_4 - 40);
+    .outerRadius(radius_4 - 20)
+    .innerRadius(radius_4 - 20);
 
 var pie_4 = d3.layout.pie()
     .sort(null)

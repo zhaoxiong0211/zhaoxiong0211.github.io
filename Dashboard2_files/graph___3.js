@@ -33,7 +33,7 @@ draw_3();
 ///////////////////////////////////
 function draw_3(){
   d3.select("#svg_graph3").remove();
-var margin_3 = {top: 20, right: 20, bottom: 30, left: 10},
+var margin_3 = {top: 10, right: 10, bottom: 10, left: 10},
     width_3 = document.getElementById("weekBarChart").offsetWidth - margin_3.left - margin_3.right,
     height_3 = document.getElementById("weekBarChart").offsetWidth - margin_3.top - margin_3.bottom;
 

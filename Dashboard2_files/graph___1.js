@@ -56,11 +56,12 @@ var graph1_width = document.getElementById("graph1").offsetWidth-40;
 // var graph1_width = 900;
 
 
-var margin = {top: 10, right: 10, bottom: graph1_width*0.15, left: 40},
-    margin2 = {top: graph1_width*0.6*0.8, right: 10, bottom: graph1_width*0.15*0.5, left: 40},
+var margin = {top: 10, right: 10, bottom: graph1_width*0.1, left: 40},
+    margin2 = {top: graph1_width*0.4*0.8, right: 10, bottom: graph1_width*0.1*0.5, left: 40},
     width = graph1_width - margin.left - margin.right,
-    height = graph1_width*0.6 - margin.top - margin.bottom,
-    height2 = graph1_width*0.6 - margin2.top - margin2.bottom;
+    height = graph1_width*0.4 - margin.top - margin.bottom,
+    height2 = graph1_width*0.4 - margin2.top - margin2.bottom;
+
 
 // var parseDate = d3.time.format("%Y-%m-%d").parse;
 var bisectDate = d3.bisector(function(d) { return d.date; }).left;
