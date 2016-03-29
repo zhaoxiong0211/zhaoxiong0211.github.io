@@ -1,0 +1,197 @@
+<style type="text/css">
+body
+{
+font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+ /*     background-color: 3;*/
+}
+
+svg {
+font-size: 8px;
+  /*font: 10px sans-serif;*/
+}
+
+.area {
+  /*ill: steelblue;*/
+  fill: #d9534f;
+  fill: url(#temperature-gradient);
+      fill-opacity: 0.6;
+  clip-path: url(#clip);
+}
+.axis
+{
+  fill:#aaa;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #aaa;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+    .x.axis path {
+      display: none;
+    }
+
+    .line {
+      fill: none;
+/*      stroke: #d9534f;
+*/      stroke: none;
+      stroke-width: 1.5px;
+    }
+/*    .area {
+      fill: #d9534f;
+      fill: url(#temperature-gradient);
+      fill-opacity: 0.2;
+    }*/
+    .overlay {
+      fill: none;
+      pointer-events: all;
+    }
+
+    .focus circle {
+      fill: none;
+      stroke: #d9534f;
+      stroke-width: 1.5px;
+    }
+
+    .bar {
+  fill: #d9534f;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+#focus_tooltip
+{
+  font-weight: bold;
+  font-size: 12px;
+  position: fixed;
+  width:100px;
+  text-align: left;
+  left: 10px;
+  top:-10px;
+}
+.subdomain-text
+{
+  fill: #fff;
+}
+#bar_text{
+  font-size: 12px;
+}
+
+
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+#pie_text{
+  font-size: 10px;
+  fill: #fff;
+}
+
+#tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+}
+#tooltip.hidden {
+    opacity: 0;
+}
+#tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+.graph_title
+{
+  background-color: #263942;
+  color:#fff;
+  text-align: center;
+  margin-bottom: 0px;
+  padding: 10px;
+}
+.graph_title_2
+{
+  background-color: #263942;
+  color:#fff;
+  padding:10px;
+  margin-top: 0px;
+}
+.graph
+{
+  background-color: #ffffff;
+}
+.graph_2
+{
+  background-color: #ffffff;
+/*  padding-left:0px; 
+  padding-right:0px; 
+  margin-right: 10px;*/
+}
+.main{
+  padding-top: 0px;
+}
+.cal-heatmap-container
+{
+margin:auto;
+}
+.carousel-control
+{
+  width: 5%;
+  opacity: 1;
+  text-shadow:none;
+  color: #eaab8d;
+}
+.carousel-control:hover
+{
+opacity: 1;
+color: #d9534f;
+}
+.graph-graph-subdomain-group
+{
+  top:30px;
+}
+    </style>
