@@ -52,6 +52,7 @@
     background-color: rgb(207,91,32);
     overflow: hidden;
     -webkit-transition : border-radius 1000ms ease-out;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 /*

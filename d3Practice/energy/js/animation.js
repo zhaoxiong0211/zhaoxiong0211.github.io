@@ -26,11 +26,12 @@ var powerTitle = document.getElementById("powerTitle");
 
 var disX = 20 * windowWidth / 100 + 40;
 var disY = 30 * windowHeight / 100;
-var ratioX = windowWidth / 80 + 0.1, ratioY = 0.6*windowHeight / 80;
+var ratioX = windowWidth / 80, ratioY = 0.6*windowHeight / 80;
 
 function button(){
     if(button_triggered==false){
         button_triggered = true
+        orangeButton.style.boxShadow = "0 0 0 0 rgba(0, 0, 0, 0.3)";
 
         // graph part animation
         var transition_basic = "\
@@ -213,6 +214,8 @@ function back(){
             count = count + 1;
             if (count == 100){number_detail.innerHTML = 180.7 + " ";clearInterval(timer);}
         }, 10);
+       
+       orangeButton.style.boxShadow = "0 2px 2px 0 rgba(0, 0, 0, 0.3)";
     }
     
    }
