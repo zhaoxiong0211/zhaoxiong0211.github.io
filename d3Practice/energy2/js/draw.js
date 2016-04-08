@@ -16,8 +16,6 @@ var data = [
 var color = ["rgb(178,38,87)", "rgb(221,96,68)","rgb(230,154,69)","rgb(99,163,166)"]
 var for_text = [{"key":"Heat","dis":100,"sub":"2576kWh"},{"key":"Gas","dis":50,"sub":"2576kWh"},{"key":"Electricity","dis":20,"sub":"2576kWh"},{"key":"Water","dis":-50,"sub":"2576kWh"}]
 
-//var average = [-0,35,45,55,25,15,35]
-
 var parseDate = d3.time.format("%d-%b-%y").parse;
 
 var x = d3.time.scale()
@@ -54,13 +52,6 @@ var svg = d3.select("#chart").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-//  data.forEach(function(d) {
-//      d.value.forEach(function(d2) {
-//        d2.date = parseDate(d2.date);
-//        d2.close = +d2.close;
-//    })
-//  });
-
 y.domain([-150, 150]);
 
 
@@ -71,35 +62,20 @@ function make_x_axis() {
         .ticks(7)
 }
 
-//var data_temp = [{"key":"Heat","value":[{"date" : "06-Oct-12","close" : 50}]},{"key":"Gas","value":[{"date" : "06-Oct-12","close" : 30}]},{"key":"Electricity","value":[{"date" : "06-Oct-12","close" : 0}]},{"key":"Water","value":[{"date" : "06-Oct-12","close" : -20}]}];
-//console.log(data_temp)
-//var count = 2;
-//var length = data.length
-
-//var data_temp_before = $.extend(true, [], data_temp);
 var isClicked = false;
 var isXAxis = false;
 
 data.forEach(function(d,i) {
-//    var tem = d.value;
     var cur_value = d.value
-    console.log(cur_value)
-//    var before_value = data_temp[i].value
     var idx = i
     var keyName = d.key
-//    console.log(cur_value)
-//    console.log(idx)
     cur_value.forEach(function(d) {
         d.date = parseDate(d.date);
         d.close = +d.close;
       });
-    
-//    before_value.forEach(function(d) {
-//        d.date = parseDate(d.date);
-//        d.close = +d.close;
-//      });
 
     x.domain(d3.extent(cur_value, function(d) { return d.date; }));
+    
     if(isXAxis==false){
         svg.append("g")
             .attr("class", "grid")
@@ -116,28 +92,15 @@ data.forEach(function(d,i) {
                     );
         isXAxis = true;
     }
-
-//    console.log(cur_value);
-//    cur_value.forEach(function(d_tem,count){
-//        var id = "the_SVG_" + idx;
-//        if(count<7){
-//            svg.selectAll("#"+id).remove();
-            svg.append("path")
-            //          .datum(cur_value)
-              .attr("class", "area")
-//              .attr("id", id)
-              .attr("d", area_0(cur_value))
-            //      .attr("x", function(d) { return x(d.date); })
-            //      .attr("y0", y(0))
-            //      .attr("y1", function(d) { return y(d.close); })
-              .style("fill", function(d,i) { return color[idx]; })
-              .on('click', function(d,i){ console.log(keyName); clickAnimation(idx)} )
-              .transition()
-//                .delay(function(d,i) {return count*500})
-                .duration(2000)
-                .attr("d", function(d,i) { return area(cur_value)});
-//        }
-//    })
+    
+    svg.append("path")
+      .attr("class", "area")
+      .attr("d", area_0(cur_value))
+      .style("fill", function(d,i) { return color[idx]; })
+      .on('click', function(d,i){ console.log(keyName); clickAnimation(idx)} )
+      .transition()
+        .duration(2000)
+        .attr("d", function(d,i) { return area(cur_value)});
 })
 
 setTimeout(function(){
@@ -153,21 +116,6 @@ setTimeout(function(){
               .transition()
                 .duration(500)
                 .attr("opacity", 1);
-        
-//        svg.append("svg:foreignObject")
-//            .attr("class","subKey")
-//            .attr("width", 20)
-//            .attr("height", 20)
-//            .attr("y", y(for_text[i].dis))
-//            .attr("x", function(d) { return x(data[0].value[5].date); })
-//            .append("xhtml:span")
-//              .attr({ 'class': 'glyphicon glyphicon-play gly-rotate-270' })
-        
-//              .html("1234")
-        
-//         text_node = svg.selectAll(".subKey")
-//         tspan = text_node.text(null).append("tspan").attr("x", 0).attr("y", 0).attr("dy", 1 + "em");
-
     })
 },2000)
 
@@ -203,6 +151,23 @@ function clickAnimation(i){
             .style("font-size",function(d,j){
             return j != i ? "16px" : "24px";
         })
+        
+        setTimeout(function(){
+            var upIcon = document.createElement("span");
+            upIcon.id = "subDetailId";
+            upIcon.className = "subDetail";
+            upIcon.innerHTML = '<span class="glyphicon glyphicon-play up"></span>  2576kWh';
+            document.body.appendChild(upIcon);
+
+            var clickedElement = document.getElementsByClassName("keyTitle")[i];
+            rect = clickedElement.getBoundingClientRect();
+
+            upIcon.style.position = "absolute";
+            upIcon.style.bottom = ($(window).height() - rect.bottom) + "px";
+            upIcon.style.right = ($(window).width() - rect.right)+ "px";
+            
+            upIcon.classList.add("show")
+        },1000)
     }
     else {
         isClicked = false;
@@ -220,15 +185,9 @@ function clickAnimation(i){
             .style("font-size",function(d,j){
             return "16px";
         })
-//            svg.selectAll(".keyTitle")[i]
-//                .transition()
-//                .attr("x", function(d) { return (3*x(data[0].value[6].date)+x(data[0].value[5].date))/4; })
-//                .attr("y", function(d,j) {y(for_text[i].dis)})
-//                .attr("dy", ".35em")
+        document.getElementById("subDetailId").remove();
     }
-//        })})
 }
-
 
 svg.append("g")
   .attr("class", "x axis")
@@ -239,3 +198,15 @@ svg.append("g")
     .attr("dx", ".5em")
     .attr("transform", "rotate(270)" );
 
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+
+var number = document.getElementById("num");
+var number_string = document.getElementById("num").innerHTML;
+var count = 0;
+var timer = setInterval(function(){ 
+    number.innerHTML = count + number_string;
+    count = count + 1;
+    if (count == 36){clearInterval(timer);}
+}, 50);
