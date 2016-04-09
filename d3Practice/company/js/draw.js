@@ -19,6 +19,11 @@ var yAxis = d3.svg.axis()
     .tickValues([0, 50, 100, 150, 200, 250])
     .orient("left");
 
+var lineFunction = d3.svg.line()
+    .x(function(d) { return x(d.x); })
+    .y(function(d) { return y(d.y); })
+    .interpolate("linear");
+
 var svg = d3.select("#scatter").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -112,6 +117,8 @@ d3.csv("data.csv", function(error, data) {
     }
     
     function clickFunction(clickedItem, idx){
+        
+        // arc animation
         var arc = d3.svg.arc()
                     .innerRadius(2*clickedItem.size+5)
                     .outerRadius(2*clickedItem.size+8)
@@ -143,9 +150,57 @@ d3.csv("data.csv", function(error, data) {
             .ease("sin")
             .attr("opacity", "0");
         
+        // line animation
+        var lineData = [{"x":clickedItem.x,"y":clickedItem.y},{"x":clickedItem.x,"y":clickedItem.y}]
+        var lineData_2 = [{"x":clickedItem.x,"y":clickedItem.y},{"x":clickedItem.x,"y":0}]
+        
+        var lineGraph = svg.append("path")
+                        .attr("class", "movingLine")
+                        .attr("d", lineFunction(lineData))
+                        .attr("stroke", clickedItem.color)
+                        .attr("stroke-width", 2)
+                        .attr("fill", "none")
+                        .transition()
+                            .duration(300)
+                            .ease("exp")
+                            .attr("d", lineFunction(lineData_2));
+        
+        svg.selectAll(".movingLine")
+            .transition()
+            .delay(300)
+            .duration(300)
+            .ease("exp")
+            .attr("d", lineFunction(lineData));
+        
+        // bottom circle animation
+        svg.append("circle")
+              .attr("class", "bottomCircle")
+              .attr("r", function(d) { return 2*clickedItem.size; })
+              .attr("cx", function(d) { return x(clickedItem.x); })
+              .attr("cy", function(d) { return y(0); })
+              .style("fill", function(d) { return clickedItem.color; })
+              .attr("opacity", "0")
+              .transition()
+                .delay(300)
+                .duration(150)
+                .ease("sin")
+                .attr("opacity", "1")
+        
+        svg.selectAll(".bottomCircle")
+            .transition()
+            .delay(450)
+            .duration(150)
+            .ease("sin")
+            .attr("opacity", "0");
+        
+        // clear all animation
         setTimeout(function(){
             svg.selectAll(".arc").remove()
+            svg.selectAll(".movingLine").remove()
+            svg.selectAll(".bottomCircle").remove()
         },600);
+        
+        
     }
 
 });
