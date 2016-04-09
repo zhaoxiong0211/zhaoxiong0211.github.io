@@ -101,6 +101,7 @@ data.forEach(function(d,i) {
       .transition()
         .duration(2000)
         .attr("d", function(d,i) { return area(cur_value)});
+    
 })
 
 setTimeout(function(){
@@ -167,7 +168,7 @@ function clickAnimation(i){
             upIcon.style.right = ($(window).width() - rect.right)+ "px";
             
             upIcon.classList.add("show")
-        },1000)
+        },500)
     }
     else {
         isClicked = false;
