@@ -49,6 +49,18 @@ d3.csv("data.csv", function(error, data) {
   x.domain([0,10000]);
   y.domain([0,250]);
     
+  
+  for(var i=0; i<5; i++){
+      if (i % 2 == 1){
+          var rectangle = svg.append("rect")
+                        .attr("x", x(i*2000))
+                        .attr("y", y(250))
+                        .attr("width", x(2000))
+                        .attr("height", y(0))
+                        .style("fill", "rgb(59,66,79)");
+      }
+  }
+    
     // Draw the x Grid lines
   svg.append("g")
     .attr("class", "grid")

@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(50,57,69)
+    background-color: rgb(50,57,69);
 }
 
 .main{
@@ -92,7 +92,7 @@ body{
     shape-rendering: crispEdges;
 }
 .grid path {
-          stroke-width: 0;
+    stroke-width: 0;
 }
 
 #companyName{
