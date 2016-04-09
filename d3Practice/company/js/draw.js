@@ -1,6 +1,13 @@
+var companyName = document.getElementById("companyName")
+companyName.style.lineHeight = companyName.clientHeight + "px";
+
+
+// d3 from here
 var margin = {top: 50, right: 0, bottom: 30, left: 60},
     width = document.getElementById("scatter").clientWidth - margin.left - margin.right,
     height = document.getElementById("scatter").clientHeight - margin.top - margin.bottom;
+
+var brandInfo = {"name": "Apple", "followers":28392,"employees":9743,"commitment":21.35,"publications":8}
 
 var x = d3.scale.linear()
     .range([0, width]);
@@ -118,6 +125,10 @@ d3.csv("data.csv", function(error, data) {
     
     function clickFunction(clickedItem, idx){
         
+        //////////////////////////////////////////////////////////////////////////////
+        //////////////////////       Animation in D3      ////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////
+        
         // arc animation
         var arc = d3.svg.arc()
                     .innerRadius(2*clickedItem.size+5)
@@ -200,7 +211,55 @@ d3.csv("data.csv", function(error, data) {
             svg.selectAll(".bottomCircle").remove()
         },600);
         
+        //////////////////////////////////////////////////////////////////////////////
+        //////////////////       Animation in Brand Info      ////////////////////////
+        //////////////////////////////////////////////////////////////////////////////
         
+        // Brand info change animation
+        var follower = document.getElementById("followers"),
+            employee = document.getElementById("employees"),
+            commitment = document.getElementById("commitment"),
+            publication = document.getElementById("publications")
+        
+        var follower_unit = brandInfo.followers / 60.0,
+            employee_unit = brandInfo.employees / 60.0,
+            commitment_unit = brandInfo.commitment / 60.0,
+            publication_unit = brandInfo.publications / 60.0
+    
+        var count = 0;
+        
+        var brandInfoChange = setInterval(function(){
+            follower.innerHTML = Math.round(follower_unit * count);
+            employee.innerHTML = Math.round(employee_unit * count);
+            commitment.innerHTML = (commitment_unit * count).toFixed(2);
+            publication.innerHTML = Math.round(publication_unit * count);
+            count += 1;
+            if(count == 60){
+                count = 0;
+                follower.innerHTML = brandInfo.followers;
+                employee.innerHTML = brandInfo.employees;
+                commitment.innerHTML = brandInfo.commitment;
+                publication.innerHTML = brandInfo.publications;
+                clearInterval(brandInfoChange);
+            }
+        },10)
+        
+        // Brand name change animation
+        
+        companyName.style.opacity = 0;
+        setTimeout(function(){
+            companyName.innerHTML = brandInfo.name;
+            companyName.style.opacity = 1;
+        },300)
+        
+        
+        // Brand logo animation
+        var logo = document.getElementById("logo")
+        logo.style.opacity = 0;
+        logo.src = "apple.png";
+        setTimeout(function(){
+            logo.style.opacity = 1;
+        },300);
     }
 
 });

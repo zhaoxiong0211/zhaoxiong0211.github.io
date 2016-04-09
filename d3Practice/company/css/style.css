@@ -34,6 +34,20 @@ body{
     -webkit-box-shadow: 0px 4px 10px 0px rgba(100, 100, 100, 0.8);
     -moz-box-shadow:    0px 4px 10px 0px rgba(100, 100, 100, 0.8);
     box-shadow:         0px 4px 10px 0px rgba(100, 100, 100, 0.8);
+/*
+    background-image: url("../apple.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+*/
+}
+
+#brandLogo img{
+/*    max-width:100%;*/
+    max-height:100%;
+    display: block;
+    margin: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
 }
 
 #brandDetail{
@@ -42,6 +56,7 @@ body{
     padding:0px;
     z-index: 1;
     position: relative;
+    padding-left: 2vw;
 }
 
 #graphTitle{
@@ -78,6 +93,24 @@ body{
 }
 .grid path {
           stroke-width: 0;
+}
+
+#companyName{
+    height:24%;
+    color:white;
+    font-size: 22px;
+    transition: opacity 0.3s ease-in;
+}
+
+.companyDetail{
+    height:18%;
+    color: white;
+    font-size: 18px;
+}
+
+.detailTitle{
+    color:rgba(255,255,255,0.4);
+    font-size:12px;
 }
 
 @media (min-width: 768px){
