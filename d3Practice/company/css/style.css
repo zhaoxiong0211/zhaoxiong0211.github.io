@@ -152,6 +152,12 @@ img{
     .companyDetail{
         font-size: 16px;
     }
+    #companyName_p{
+        height:24%;
+        color:white;
+        font-size: 22px;
+        transition: opacity 0.3s ease-in;
+    }
 }
 
 @media (min-width: 768px){

@@ -6,13 +6,14 @@ drawFunction();
 function drawFunction(){
     d3.selectAll("svg").remove();
     
-    var companyName = document.getElementById("companyName")
-    companyName.style.lineHeight = companyName.clientHeight + "px";
-
     var view_height = $(window).height();
     var view_width = $(window).width();
 
     var isP = view_height>view_width ? "_p" : ""
+    
+    var companyName = document.getElementById("companyName"+isP)
+    companyName.style.lineHeight = companyName.clientHeight + "px";
+
 
     // d3 from here
     var margin = {top: 50, right: view_height>view_width ? 30 : 0, bottom: 30, left: 60},
