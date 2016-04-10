@@ -37,7 +37,7 @@
 }
 .info{
   position: relative;
-  top: 15vw;
+  top: 15vh;
   margin-left: 10vw;
 }
 
@@ -45,7 +45,7 @@
     z-index:9990;
     position: relative;
     top:-40px;
-    left:70vw;
+    left:70%;
     border-radius: 50%;
     width: 80px;
     height: 80px; 
@@ -122,4 +122,12 @@
     fill:white;
     stroke-width: 2px;
     stroke: rgb(207,91,32)
+}
+
+@media (min-width:768px){
+/*
+    .button{
+        left:70%;
+    }
+*/
 }
