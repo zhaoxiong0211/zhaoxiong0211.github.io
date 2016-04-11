@@ -6,8 +6,8 @@ body{
     background-color: rgb(241,243,242);
     position: relative;
     top: 0vh;
-    height:100vh;
-    padding: 0;
+    height:100%;
+    padding: 0px;
 }
 
 .detail{
@@ -15,8 +15,7 @@ body{
 }
 
 .graph{
-    height:68vh;
-/*    background-color: aliceblue;*/
+/*    height:68vh;*/
 }
 
 .text{
@@ -142,4 +141,30 @@ body{
 
 .show{
     opacity: 1;
+}
+
+@media (min-width:768px){
+    
+    .detail{
+        height:20vh;
+    }
+
+    .text{
+        float:left;
+        width:45%;
+        height:20vh;
+/*        line-height: 20vh;*/
+    }
+    .number{
+        width:20%;
+        height:20vh;
+        line-height: 20vh;
+    }
+    .info{
+        width:35%;
+        height:20vh;
+        position: relative;
+        top:1em;
+/*        line-height: 8vh;*/
+    }
 }
