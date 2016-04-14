@@ -12,7 +12,7 @@ function drawFunction(){
     
     var view_height = $(window).height();
     var view_width = $(window).width();
-    
+   
     var ratio = view_width > 768 ? 0.8 : 0.68;
 
     document.getElementById("chart").style.height = view_height*ratio + "px";
