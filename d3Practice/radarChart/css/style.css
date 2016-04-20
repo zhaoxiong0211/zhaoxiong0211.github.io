@@ -1,0 +1,14 @@
+.main{
+    position: relative;
+    height:80vh;
+    top:10vh;
+    background-color: rgb(36,44,52);
+}
+
+.stop-left 
+{
+    stop-color: rgb(163,11,90);  /* Indigo */
+}
+.stop-right {
+    stop-color: rgb(121,46,138);  /* Teal */
+}
