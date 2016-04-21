@@ -176,7 +176,8 @@ var τ = 2 * Math.PI;
           .attr("r", 8)
           .style("fill", function(d) { 
     //          console.log(d)
-              if (d.name == curSouce || d.name == curTarget) {return "rgba(93,165,154,0.8)"; }
+              if (d.name == curSouce) {return "rgba(93,165,154,0.8)"; }
+              else if(d.name == curTarget) {return "rgba(211,91,44,0.8)"; }
               else { return "rgba(255,255,255,0)"}
           });
       
@@ -185,6 +186,45 @@ var τ = 2 * Math.PI;
     rowHover.addEventListener("mouseleave", function( event ) {   
         svg.selectAll(".focus").remove()
       }, false);
+    
+rowHover.addEventListener("dblclick", function( event ) {   
+        cur = event.target.textContent;
+        $(".tableRow").remove();
+          document.getElementById('infoName').textContent=cur;
+          i = nodeNameList.indexOf(cur)
+          connectionArray = [i]
+          link.transition()
+            .duration(200)
+            .style("stroke",function(linkData,j) {
+                if (linkData.source.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.target.index); 
+                    return "red";
+                }
+                else if(linkData.target.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.source.index); 
+                    return "red";
+                }
+                else {return "rgba(150,150,150,0.6)";}
+            });
+          node.transition()
+            .duration(200)
+            .style("fill",function(nodeData,j) {
+                if (connectionArray.indexOf(nodeData.index) == -1 ) {return "rgba(150,150,150,0.6)";}
+                else {return colors[nodeData.group];}
+            });
+}, false);
   
     
 
