@@ -1,0 +1,34 @@
+#graph {
+    position: relative;
+    top:15vh;
+    height:70vh;
+    z-index:0;
+}
+
+.listSpace {
+    float: left;
+/*    background-color: beige;*/
+}
+
+li {
+    list-style-type: none;
+}
+
+.city{
+    height: 26px;
+    font-size: 14px;
+    padding-left: 2px;
+    padding-top: 2px;
+    line-height: 26px;
+    color:rgb(153, 153, 153);
+}
+
+.city:hover, .city:focus, .city:active{
+    background-color:rgb(230,206,0);
+    color:rgb(255, 255, 255);
+}
+
+.visible{
+    background-color:rgb(230,206,0);
+    color:rgb(255, 255, 255);
+}
