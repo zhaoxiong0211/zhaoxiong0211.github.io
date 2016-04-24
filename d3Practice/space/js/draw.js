@@ -1,5 +1,11 @@
 console.log(data);
 
+var data_Sorted = data.slice() .sort(function(a, b) {
+    return  - (parseFloat(a.value) - parseFloat(b.value));
+});
+
+console.log(data_Sorted)
+
 var width = document.getElementById("graph").clientWidth,
     height = document.getElementById("graph").clientHeight,
     margin = 20,
@@ -26,14 +32,14 @@ var g = d3.select("#graph")
 
 // circles, line and text
 var circles = g.selectAll("circle")
-                .data(data)
+                .data(data_Sorted)
                 .enter()
                 .append("circle")
                 .attr("class","circle")
                 .attr("cx", function (d) { return height/2+graphMarginLeft; })
                 .attr("cy", function (d) { return height/2; })
                 .attr("r", function (d) { return scale(d.value); })
-                .attr("fill", "none")
+                .attr("fill", "rgb(255,255,255)")
                 .style("stroke", function(d) { return colorGray; })
                 .style("stroke-width", "1px")
                 .on("mouseover",function(d,i){
@@ -48,22 +54,22 @@ var circles = g.selectAll("circle")
                     line.transition()
                         .duration(1)
                         .attr("x1", function (d) { 
-                            return (height/2+200)-scale(data[i].value); 
+                            return (height/2+200)-scale(data_Sorted[i].value); 
                         })
                     textValue.transition()
                         .duration(1)
-                        .text(function(d) {return data[i].value;})
+                        .text(function(d) {return data_Sorted[i].value;})
                     
                     var cities = document.getElementsByClassName("city");
                     
                     for(var n=0; n<cities.length; n++){
                         city = cities[n];
-                        city.classList.toggle("visible", n==i);
+                        city.classList.toggle("visible", city.textContent==d.city);
                     }
                 });
 
 var line = g.selectAll("line")
-                .data([data[0]])
+                .data([data_Sorted[0]])
                 .enter()
                 .append("line")
                 .attr("x1", function (d) { return (height/2+graphMarginLeft)-scale(d.value); })
@@ -74,7 +80,7 @@ var line = g.selectAll("line")
                 .attr("stroke", colorYellow);
 
 var textValue = g.selectAll("text")
-                .data([data[0]])
+                .data([data_Sorted[0]])
                 .enter()
                 .append("text")
                 .attr("x", margin)

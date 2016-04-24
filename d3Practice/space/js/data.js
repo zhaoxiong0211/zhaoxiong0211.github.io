@@ -1,4 +1,4 @@
-var data = [
+    var data = [
     {
         "city": "Beijing",
         "value": 1450

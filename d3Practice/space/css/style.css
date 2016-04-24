@@ -5,13 +5,17 @@
     z-index:0;
 }
 
+.circle {
+    cursor: pointer;
+}
+
 .listSpace {
     float: left;
-/*    background-color: beige;*/
 }
 
 li {
     list-style-type: none;
+    cursor: pointer;
 }
 
 .city{
