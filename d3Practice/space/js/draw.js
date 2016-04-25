@@ -117,7 +117,7 @@ var lineTopLeft = g.append("line")
 
 // img
 var img = g.append("svg:image")
-            .attr("xlink:href", "../person.png")
+            .attr("xlink:href", "http://i2.cdn.turner.com/money/interactive/economy/personal-space/images/person.png")
             .attr("x", (height/2+graphMarginLeft)-rRangeMin*0.6/2)
             .attr("y", height/2-rRangeMin*0.6/2)
             .attr("width", rRangeMin*0.6)
