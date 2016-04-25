@@ -19,12 +19,12 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <style type="text/css">
+  <style type="text/css">   
       body {
           font-family: 'Permanent Marker', cursive;
+          color: black;
       }
       #title {
-          color: black;
           border-style: solid;
           border-color: black;
           border-width: 10px;
@@ -34,9 +34,7 @@
           position: absolute;
           top: -60px;
           font-size: 40px;
-      }
-      #d3Fantasy {
-          position: relative;
+          left:0px;
       }
       #d3 {
           position: relative;
@@ -47,10 +45,14 @@
       #contact {
           position: absolute;
           bottom: -60px;
+          right:0px;
           font-size: 40px;
       }
+      #contact a {
+          color: black;
+      }
       #lists {
-/*          background-color: white;*/
+          cursor: pointer;
           font-size: 20px;
           text-align: left;
       }
@@ -71,9 +73,9 @@
           color: white;
       }
       
-      @media all and (orientation: landscape) {
+      @media (max-width:768px) and (orientation: portrait) {
             #lists li{
-              width:25%;
+              width:28%;
               margin-right: 5%;
               padding: 5px;
           }
@@ -83,16 +85,24 @@
       <div class="container">
           <div class="row">
               <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3" id="title">
+<!--
+                   <svg height="210" width="500" style="position:absolute;left:0px;" id="topLine">
+                      <line x1="0" y1="0" x2="0" y2="0" style="stroke:rgb(0,0,0);stroke-width:10;" />
+                   </svg>
+-->
                    <span id="name">Zhao Xiong</span>
                    <h1 id="d3">D3</br></h1>
-                   <h1 id="fantasy">Fantasy .</h1>
-                   <span id="contact">Contatc Me</span>
+                   <h1 id="fantasy">Fantasy.</h1>
+                   <span id="contact"><a href="mailto:zhaoxiong2015@u.northwestern.edu" target="_top">Contact Me</a></span>
               </div>
               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="lists">
                     <ul>
                       <li>NO.1</li>
                       <li>NO.2</li>
                       <li>NO.3</li>
+                      <li>NO.4</li>
+                      <li>NO.5</li>
+                      <li>NO.6</li>
                     </ul>
               </div>
           </div>
@@ -112,6 +122,12 @@
         function draw(){
             var windowHeight = $(window).height(),
                 windowWidth = $(window).width();
+            
+            var isPortrait = false;
+            
+            if (windowWidth<768){
+                isPortrait = windowWidth < windowHeight ? true : false;
+            }
 
             var title = document.getElementById("title");
             title.style.height = title.clientWidth + "px";
@@ -124,8 +140,34 @@
             fantasy.style.fontSize = (title.clientWidth / 7)*1.5 + "px";
             
             var lists = document.getElementById("lists");
-            lists.style.height = title.clientWidth + "px";
-            lists.style.top = ((windowHeight - title.clientWidth) / 2) + "px";            
+            lists.style.top = ((windowHeight - title.clientWidth) / 2) + "px";   
+            
+            if (isPortrait){
+                title.style.top = ((windowHeight - title.clientWidth) / 2 - 40) + "px";
+                lists.style.top = ((windowHeight - title.clientWidth) / 2 + 10) + "px";   
+            }
+            
+            title.addEventListener("mouseover", function(){
+                title.style.backgroundColor = "black";
+                d3.style.color = "white";
+                fantasy.style.color = "white";
+            },false);
+            
+            title.addEventListener("mouseleave", function(){
+                title.style.backgroundColor = "white";
+                d3.style.color = "black";
+                fantasy.style.color = "black";
+            },false);
+            
+//            var top = document.getElementById("topLine");
+//            top.style.height = ((windowHeight - title.clientWidth) / 2) + "px";
+//            top.style.width = (title.clientWidth /2) + "px";
+//            top.style.top = (-(windowHeight - title.clientWidth) / 2 - 10) + "px";
+//            
+//            topLine = top.children[0];
+//            topLine.x1.baseVal.value = title.clientWidth/2;
+//            topLine.y2.baseVal.value = ((windowHeight - title.clientWidth) / 2 + 10);
+            
         }
     </script>
   </body>
