@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<script src="js/d3.min.js" charset="utf-8"></script>
+<style>
+    body{
+        background-color: rgb(255,255,255);
+        font-family: 'Roboto', sans-serif; 
+    }
+    h1 {
+        color: rgb(93,165,154);
+    }
+    .node {
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+
+    .link {
+      stroke: #999;
+      stroke-opacity: .6;
+    }
+
+    #graph {
+        height:500px;
+        background-color: rgb(242,242,242);
+    }
+    
+    #info {
+        background-color: rgb(242,242,242);
+        height:500px;
+    }
+    #tables {
+        position: relative;
+        top:100px;
+        height:300px;
+        border-style: solid;
+        border-color: rgb(93,165,154);
+        border-width: 2px;
+/*        overflow: scroll;*/
+        width: 90%;
+    }
+    #myTable {
+    }
+    .radio {
+        padding: 0px;
+    }
+    .radio+.radio {
+        margin-top: 10px;
+    }
+    .form-control {
+        height: 30px;
+        background-color: rgba(255,255,255,0);
+        border-radius: 0px;
+        border-color: rgb(93,165,154);
+        border-width: 0px;
+        border-bottom-width: 2px;
+    }
+    .btn {
+         background-color: none;
+    }
+    #infoName {
+        height:30px;
+        font-size: 16px;
+        line-height: 30px;
+        margin:auto;
+        text-align: center;
+        color: rgb(93,165,154);
+    }
+    #Table {
+        height: 235px;
+        overflow: scroll;
+    }
+    #myTable {
+        table-layout: fixed;
+        width:100%;
+        border-width:0px;    
+        margin-bottom: 0px;
+    }
+    #myTable tbody tr th,
+    #myTable tbody tr td{
+        text-align: center;
+        width: 50%;
+    }
+    #myTable tbody tr th {
+        color: rgb(93,165,154);
+    }
+    #myTable tbody tr td {
+        font-size: 12px;
+        color: rgb(102,102,102);
+    }
+    
+    div.tooltip {	
+        position: absolute;			
+        text-align: center;			
+        width: 100px;					
+        padding: 2px;				
+        font: 12px;		
+        background: rgba(255,255,255,0.8);	
+        border: 1px solid rgb(93,165,154);
+        pointer-events: none;	
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(93,165,154,0.2);
+    }
+
+</style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12" id="title">
+                <h1>Force-Direct Graph D3 Practice | Zhao Xiong</h1>
+            </div>
+            <div class="col-md-9 col-lg-9" id="graph">
+            </div>
+            <div class="col-md-3 col-lg-3" id="info">
+                <div id="tables">
+                    <div class="searchBar">
+                        <input type="text" class="form-control" placeholder="Search a node name" id="searchBar" onkeydown="search(this)">
+                    </div>
+                    <p id="infoName">Name</p>
+                    <div id="Table">
+                        <table class="table table-hover table-bordered" id="myTable">
+                              <tr>
+                                <th>Source</th>
+                                <th>Target</th>
+                              </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="miserables.json"></script>
+<script>
+    
+//function handler(ev) {
+//    console.log(ev);
+//    var target = $(ev.target);
+//    console.log(target);
+//}
+//$( document ).ready(function() {    
+//    $(".tableRow").hover(function(){
+//        console.log($( this ))
+//    });
+//});
+    
+var rowHover = document.getElementById("myTable");
+var τ = 2 * Math.PI;
+  
+  
+  // this handler will be executed only once when the cursor moves over the unordered list
+  rowHover.addEventListener("mouseover", function( event ) {   
+      svg.selectAll(".focus").remove()
+    // highlight the mouseenter target
+    curRow = event.target.parentElement;
+    curSouce = curRow.childNodes[0].textContent;
+    curTarget = curRow.childNodes[1].textContent;
+    console.log(curSouce, curTarget);
+      
+        var focus = svg.selectAll(".focus")
+          .data(graph.nodes)
+        .enter()
+        .append("circle")
+          .attr("class", "focus")
+          .attr("cx", function(d){return d.x})
+          .attr("cy", function(d){return d.y})
+          .attr("r", 8)
+          .style("fill", function(d) { 
+    //          console.log(d)
+              if (d.name == curSouce) {return "rgba(93,165,154,0.8)"; }
+              else if(d.name == curTarget) {return "rgba(211,91,44,0.8)"; }
+              else { return "rgba(255,255,255,0)"}
+          });
+      
+  }, false);
+    
+    rowHover.addEventListener("mouseleave", function( event ) {   
+        svg.selectAll(".focus").remove()
+      }, false);
+    
+rowHover.addEventListener("dblclick", function( event ) {   
+        cur = event.target.textContent;
+        $(".tableRow").remove();
+          document.getElementById('infoName').textContent=cur;
+          i = nodeNameList.indexOf(cur)
+          connectionArray = [i]
+          link.transition()
+            .duration(200)
+            .style("stroke",function(linkData,j) {
+                if (linkData.source.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.target.index); 
+                    return "red";
+                }
+                else if(linkData.target.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.source.index); 
+                    return "red";
+                }
+                else {return "rgba(150,150,150,0.6)";}
+            });
+          node.transition()
+            .duration(200)
+            .style("fill",function(nodeData,j) {
+                if (connectionArray.indexOf(nodeData.index) == -1 ) {return "rgba(150,150,150,0.6)";}
+                else {return colors[nodeData.group];}
+            });
+}, false);
+  
+    
+
+function search(ele) {
+    if(event.keyCode == 13) {
+        searchValue = ele.value;
+        if (nodeNameList.indexOf(searchValue) == -1) {
+            alert("Can not find this node, please try again.")
+        }
+        else {
+          $(".tableRow").remove();
+          document.getElementById('infoName').textContent=searchValue;
+          i = nodeNameList.indexOf(searchValue)
+          connectionArray = [i]
+          link.transition()
+            .duration(200)
+            .style("stroke",function(linkData,j) {
+                if (linkData.source.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.target.index); 
+                    return "red";
+                }
+                else if(linkData.target.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.source.index); 
+                    return "red";
+                }
+                else {return "rgba(150,150,150,0.6)";}
+            });
+          node.transition()
+            .duration(200)
+            .style("fill",function(nodeData,j) {
+                if (connectionArray.indexOf(nodeData.index) == -1 ) {return "rgba(150,150,150,0.6)";}
+                else {return colors[nodeData.group];}
+            });
+        }
+    }
+    ele.value = ""
+}
+    
+var colors = ["rgb(105,180,118)", "rgb(95,168,157)", "rgb(102,170,224)", "rgb(211,91,44)", "rgb(111,179,83)", "rgb(227,122,169)", "rgb(248,237,69)", "rgb(64,113,184)", "rgb(186,155,111)", "rgb(157,196,77)", "rgb(192,177,152)"]
+    
+var width = document.getElementById("graph").clientWidth,
+    height = document.getElementById("graph").clientHeight;
+
+var table = document.getElementById("myTable");
+
+var color = d3.scale.category20();
+
+var force = d3.layout.force()
+    .charge(-100)
+    .linkDistance(30)
+    .size([width, height]);
+    
+    var svg = d3.select("#graph").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .on('click', function() {
+    if (d3.select(d3.event.target).classed('node')) {
+        console.log("click a node!")
+    } else {
+        clickCancle();
+    }
+    });
+
+  force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+    
+  nodeCount = graph.nodes.length;
+  nodeNameList = []
+  for (var i=0; i<nodeCount; i++){
+      nodeNameList.push(graph.nodes[i].name)
+  }
+    
+  var tooltip = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+    
+  var arc = d3.svg.arc()
+    .innerRadius(8)
+    .outerRadius(10)
+    .startAngle(0);
+
+  var link = svg.selectAll(".link")
+      .data(graph.links)
+    .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  var node = svg.selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", 5)
+      .style("fill", function(d) { return colors[d.group]; })
+      .call(force.drag)
+      .on("click",function(d,i){
+          $(".tableRow").remove();
+          document.getElementById('infoName').textContent=d.name;
+          console.log(d,i);
+          connectionArray = [d.index]
+          link.transition()
+            .duration(200)
+            .style("stroke",function(linkData,j) {
+                if (linkData.source.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.target.index); 
+                    return "red";
+                }
+                else if(linkData.target.index == i) {
+                    var row = table.insertRow(-1);
+                    row.classList.add("tableRow");
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = linkData.source.name;
+                    cell2.innerHTML = linkData.target.name;
+                    connectionArray.push(linkData.source.index); 
+                    return "red";
+                }
+                else {return "rgba(150,150,150,0.6)";}
+            });
+          node.transition()
+            .duration(200)
+            .style("fill",function(nodeData,j) {
+                if (connectionArray.indexOf(nodeData.index) == -1 ) {return "rgba(150,150,150,0.6)";}
+                else {return colors[nodeData.group];}
+            });
+      })
+      .on("mouseover", function(d){
+            tooltip.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            tooltip	.html(d.name + "</br>Group: " + d.group + "</br>Weight: " + d.weight)
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY) + "px");	
+      })
+      .on("mouseout", function(d) {		
+            tooltip.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+      });
+
+  node.append("title")
+      .text(function(d) { return d.name; });
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+  });
+
+    
+    function clickCancle(){
+        link.transition()
+            .duration(200)
+            .style("stroke", "#999");
+        node.transition()
+            .duration(200)
+            .style("fill", function(d) { return colors[d.group]; });
+        $(".tableRow").remove();
+        document.getElementById('infoName').textContent="Name";
+    }
+    
+//});
+
+</script>
+</body>
