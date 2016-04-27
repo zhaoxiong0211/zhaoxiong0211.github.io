@@ -1,0 +1,55 @@
+#left {
+    color:#999999;
+}
+
+.btn-default {
+    color:#999999;
+}
+
+#chart {
+    margin-top:30px;
+    text-align: center;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #999999;
+  stroke-width: 1.5px;
+  shape-rendering: crispEdges;
+}
+    
+.axis text{
+    fill: #999999;
+}
+
+.tick{
+    display: none;
+}
+
+.line_0 {
+  fill: none;
+  stroke: rgb(95,168,157);
+  stroke-width: 1.5px;
+}
+
+.line_1 {
+  fill: none;
+  stroke: rgb(224,146,47);
+  stroke-width: 1.5px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus_0 circle {
+  fill: rgb(95,168,157);
+  stroke: white;
+}
+
+.focus_1 circle {
+  fill: rgb(224,146,47);
+  stroke: white;
+}
