@@ -1,5 +1,8 @@
 .main{
+  position: relative;
+/*  top:10vh;*/
   height:100vh;
+  width:60vh;
   padding:0px;
 }
 .graph{
@@ -12,7 +15,7 @@
   position: relative;
   top: -80px;
 */
-  height:40vh;
+  height:40%;
   background-color:whitesmoke
 }
 .title{
@@ -37,8 +40,8 @@
 }
 .info{
   position: relative;
-  top: 15vh;
-  margin-left: 10vw;
+  top: 10vh;
+  margin-left: 5vw;
 }
 
 .button{
