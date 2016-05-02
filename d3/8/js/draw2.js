@@ -1,6 +1,7 @@
 var graph2 = document.getElementById("graph2")
 var stateN = document.getElementById("stateN")
 var lineChart = document.getElementById("lineChart")
+var backIcon = document.getElementById("backIcon")
 
 function getStateInfo(state){
     if(graph2.classList.length == 2){
@@ -49,8 +50,6 @@ function draw2(data){
         d.num = +d.num;
     })
      
-    console.log(data);
-
     var x = d3.time.scale()
     .range([0, width]);
 
@@ -83,7 +82,7 @@ function draw2(data){
 
     x.domain([d3.min(data, function(d,i) {return d.year}),d3.max(data, function(d,i) {return d.year})]);
     y.domain([d3.min(data, function(d,i) {return d.num}), d3.max(data, function(d,i) {return d.num})]);
-//    console.log(d3.min(data, function(d,i) {return d.num}))
+
     svg2.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -109,6 +108,19 @@ function draw2(data){
         .attr("class", "line")
         .attr("d", line);
     
+    var info = svg2.selectAll("infoText")
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("x", function(d) {return x(d.year)})
+                    .attr("y", function(d) {return y(d.num)})
+                    .attr("dx", function(d,i) {return i<=4 ? "1em" : "-1em"})
+                    .text(function(d,i) {return years[i] + " / " + d.num})
+                    .style("text-anchor",function(d,i) {return i<=4 ? "start" : "end"})
+                    .attr("font-size", "12px")
+                    .attr("fill", "#999999")
+                    .style("opacity", "0");
+    
     var circles = svg2.selectAll("circle")
                         .data(data)
                         .enter()
@@ -116,7 +128,24 @@ function draw2(data){
                         .attr("cx", function (d) { return x(d.year); })
                         .attr("cy", function (d) { return y(d.num); })
                         .attr("r", function (d) { return "3"; })
-                        .style("fill", function(d) { return "rgb(95,168,157)"; });
+                        .style("fill", function(d) { return "rgb(95,168,157)"; })
+                        .on("mouseover",function(d,i){
+                            circles.transition()
+                                    .duration(200)
+                                    .attr("r", function (d2,j) { return i==j ? "6" : "3"; });
+                            
+                            info.transition()
+                                .duration(200)
+                                .style("opacity", function (d2,j) { return i==j ? "1" : "0"});
+                        })
+                        .on("mouseout",function(d,i){
+                            circles.transition()
+                                    .duration(200)
+                                    .attr("r", "3");
+                             info.transition()
+                                .duration(200)
+                                .style("opacity", "0");
+                        });
     
     function valueFormat(d) {
         if (d > 1000000000) {
@@ -130,55 +159,8 @@ function draw2(data){
         }
     }
 
-//    var info = svg.append("text")
-//                    .attr("x", width/2)
-//                    .attr("y", 12)
-//                    .text("test")
-//                    .style("text-anchor","middle")
-//                    .attr("font-size", "12px")
-//                    .attr("fill", "#999999")
-//                    .style("opacity", "0");
-//
-//    var title = svg.append("text")
-//                    .attr("x", 0)
-//                    .attr("y", 0)
-//                    .attr("dy", "-.5em")
-//                    .text(function(d,i) {return "Chart" + (i+1);})
-//                    .style("text-anchor","start")
-//                    .attr("font-size", "16px")
-//                    .attr("fill", "#999999");
-//
-//    var focus = svg.append("g")
-//      .attr("class", "focus_" + state)
-//      .style("display", "none");
-//
-//    focus.append("circle")
-//      .attr("r", 4.5);
-
-    //focus.append("text")
-    //  .attr("x", 9)
-    //  .attr("dy", ".35em");
-
-//    svg.append("rect")
-//      .attr("class", "overlay")
-//      .attr("width", width)
-//      .attr("height", height)
-//      .on("mouseover", function(d,i) { idx = i; focus.style("display", null); })
-//      .on("mouseout", function(d,i) {focus.style("opacity", "0"); })
-//      .on("mousemove", mousemove);
-//    
-//    function mousemove() {
-//        var x0 = x.invert(d3.mouse(this)[0]),
-//            i = bisectDate(data[idx], x0, 1),
-//            d0 = data[idx][i - 1],
-//            d1 = data[idx][i],
-//            d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-//        focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")")
-//            .style("opacity", function(da,i) {if(i!=idx) {return "0";}})
-//
-//        info.transition()
-//            .duration(10)
-//            .text(d.date + " | " + formatCurrency(d.close))
-//            .style("opacity", function(d,i) {return i==idx ? "1" : "0"});
-//        }
 }
+
+backIcon.addEventListener("click", function(){
+    graph2.classList.remove("show");
+})

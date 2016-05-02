@@ -42,8 +42,8 @@ body {
     left:-400px;
     height: 100vh;
     width: 400px;
-    background-color: rgba(234,202,150,0.5);
-     -webkit-transition: left 1s;
+    background-color: rgba(255,255,255,0.5);
+    -webkit-transition: left 1s;
     transition: left 1s;
 }
 .leftGraph.show {
@@ -55,6 +55,7 @@ body {
     height: 50px;
     line-height: 50px;
     left:20px;
+    font-size: 30px;
 }
 
 #lineChart {
@@ -80,5 +81,25 @@ body {
 }
 
 .tick text{
+    font-size:12px;
     fill:#999999;
+}
+
+#backIcon {
+    position:absolute; 
+    font-size:20px;
+    right:50px; 
+    line-height:50px; 
+    color:#999999;
+    -webkit-transition: color 1s;
+    transition: color 1s;
+}
+
+#backIcon:hover {
+    color:rgb(95,168,157);
+    cursor: pointer;
+}
+
+.textLabel{
+    cursor: pointer;
 }

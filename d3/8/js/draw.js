@@ -17,7 +17,7 @@ d3.csv("census.csv", function(err, data) {
 
     var COLOR_COUNTS = 20;
 
-    var changeFreq = 4000;
+    var changeFreq = 3000;
 
     var yearIndex = -1;
 
@@ -138,7 +138,6 @@ d3.csv("census.csv", function(err, data) {
 
 
         d3.json("https://s3-us-west-2.amazonaws.com/vida-public/geo/us.json", function(error, us) {
-            //      console.log((topojson.feature(us, us.objects.states).features))
             var stateMap = svg.append("g")
                 .attr("class", "states-choropleth")
                 .selectAll("path")
@@ -193,7 +192,6 @@ d3.csv("census.csv", function(err, data) {
                     $("#tooltip-container").hide();
                 })
                 .on("click", function(d,i){
-                    console.log("click")
                     getStateInfo(id_name_map[d.id]);
                 })
 
@@ -241,6 +239,7 @@ d3.csv("census.csv", function(err, data) {
                 })
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "12px")
+                .attr("font-weight", "bold")
                 .attr("fill", "#999999");
 
             var rectLabels = svg.append("rect")
@@ -267,7 +266,13 @@ d3.csv("census.csv", function(err, data) {
             
             
             function yearUpdate(yearIndex){
-                rectLabels.transition()
+                    textLabels.transition()
+                            .duration(changeFreq)
+                            .attr("font-size", function(d,i) {return i==yearIndex ? "14px" : "12px"})
+//                            .attr('font-weight', function(d,i) {return i==yearIndex ? "bold" : 'normal'})
+                            .attr("fill", function(d,i) {return i==yearIndex ? "rgb(95,168,157)" : "#999999"});
+                    
+                    rectLabels.transition()
                         .duration(changeFreq)
                         .attr("height", 10 + yearIndex * 50)
                     var valueById = d3.map();
