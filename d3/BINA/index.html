@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>Census in U.S</title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<!--<link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>-->
+<style>
+
+</style>
+
+<body>
+    <div id="canvas-svg"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/draw.js"></script>
+    <script src="js/Probelm1_ZhaoXiong.js"></script>
+    <script src="js/Probelm2_ZhaoXiong.js"></script>
+    <script>
+//        function getMissingLetters(str){
+//            var strLower = str.toLowerCase();
+//            var alphabet = "abcdefghijklmnopqrstuvwxyz";
+//            var ans = ""
+//            for (var i = 0; i < 26; i++){
+//                if (strLower.indexOf(alphabet[i]) == -1)
+//                    ans += alphabet[i]
+//            }
+//            return ans
+//        }
+//        console.log(getMissingLetters("A quick brown fox jumps over the lazy dog") === "")
+//        console.log(getMissingLetters("A slow yellow fox crawls under the proactive dog") === "bjkmqz")
+//        console.log(getMissingLetters("Lions, and tigers, and bears, oh my!") === "cfjkpquvwxz")
+//        console.log(getMissingLetters("") === "abcdefghijklmnopqrstuvwxyz")
+        
+        
+//        String.prototype.replaceAt=function(index, character) {
+//            return this.substr(0, index) + character + this.substr(index+character.length);
+//        }
+//        
+//        function animateGenerator(initString, indexes){
+//            keys = ["left", "right"];
+//            for (var i = 0; i < 2; i++){
+//                curKey = indexes[keys[i]];
+//                for (var j = 0 ; j < Object.keys(curKey).length ; j++){
+//                    initString = initString.replaceAt(curKey[Object.keys(curKey)[j]], "X");
+//                }
+//            }
+//            return initString;  
+//        }
+//        
+//        function animate(speed, str, ans){
+//            if (speed <= 0 || speed > 10){
+//                return alert("Your speed input is out of range, please make it beteen 1 and 10.")
+//            }
+//            if (str.length <=0 || str.length > 50) {
+//                return alert("Your string length  is out of range, please make it beteen 1 and 50.")
+//            }
+//            ans = ans || {};
+//            len = str.length;
+//            keys = ["left", "right"];
+//            if (ans["indexes"] == undefined) {
+//                ans.indexes = {"right" : {}, "left" : {}};
+//                ans.initString = Array.apply(null,{length: len}).map(function() { return "."; }).join("");
+//                ans.result = [];
+//                for (var i = 0; i < str.length ; i++){
+//                    if (str[i] == "R") ans.indexes.right["R" + i] = i;
+//                    else if (str[i] == "L") ans.indexes.left["L" + i] = i;
+//                }
+//            }
+//            else {
+//                if(Object.keys(ans.indexes.left).length == 0 && Object.keys(ans.indexes.right).length == 0){
+//                    console.log(ans.result)
+//                    return ans.result;
+//                }
+//                else{
+//                    for (var i = 0; i < 2; i++){
+//                        curKey = ans.indexes[keys[i]];
+//                        insideKeys = Object.keys(curKey)
+//                        for (var j = 0 ; j < insideKeys.length ; j++){
+//                            curKey[insideKeys[j]] = keys[i] == "right" ? (curKey[insideKeys[j]] + speed) : (curKey[insideKeys[j]] - speed);
+//                            if (curKey[insideKeys[j]] < 0 || curKey[insideKeys[j]] >= len){
+//                                delete curKey[insideKeys[j]];
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            ans.result.push(animateGenerator(ans.initString, ans.indexes))
+//            return animate(speed, str, ans);
+//        }
+//        
+//        animate(1, "")
+    </script>
+
+</body>

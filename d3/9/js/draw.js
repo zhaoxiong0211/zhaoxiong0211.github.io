@@ -22,4 +22,7 @@ d3.json("./sfmaps/streets.json", function(error, sf) {
         .attr("d", path)
         .attr("fill","none")
         .attr("stroke","#999999");
+    d3.xml("http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=N&t=0", function(error, data) {
+        console.log(data);
+    })
 })

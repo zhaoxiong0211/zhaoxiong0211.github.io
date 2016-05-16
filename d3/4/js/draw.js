@@ -102,7 +102,7 @@ function redraw(){
                     .attr("class", "graph-svg-component")
                     .append("g")
                     .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
-
+            
                 var tooltip;
 
                 // Circular segments
@@ -187,7 +187,6 @@ function redraw(){
                 mainGradient.append('stop')
                     .attr('class', 'stop-right')
                     .attr('offset', '1');
-
                 
                 color = ["rgb(53,69,88)","url(#mainGradient)"]
                 data.forEach(function(y, x) {
@@ -204,7 +203,7 @@ function redraw(){
                     .data([dataValues])
                     .enter()
                     .append("polygon")
-                    .attr("class", "radar-chart-series_"+series)
+                    .attr("class", "poly radar-chart-series_"+series)
                     .style("stroke-width", strokeWidthPolygon)
                     .style("stroke", "none")
                     .attr("points",function(d) {
@@ -220,9 +219,6 @@ function redraw(){
                     .style("fill-opacity", 0.8)
                     .on('mouseover', function (d) {
                         z = "polygon."+d3.select(this).attr("class");
-                        g.selectAll("polygon")
-                        .transition(200)
-                        .style("fill-opacity", 0.1);
                         g.selectAll(z)
                         .transition(200)
                         .style("fill-opacity", 1);
@@ -231,7 +227,43 @@ function redraw(){
                         g.selectAll("polygon")
                         .transition(200)
                         .style("fill-opacity", 0.8);
+                    })
+                    .on('click', function() {
+                        g.transition()
+                        .duration(200)
+                        .attr("transform", "translate(" + (100) + "," + cfg.TranslateY + ")");
+                        
+                    g.selectAll("text.textLa").remove();
+                        
+                    var textL = g.selectAll("textL")
+                        .data(y)
+                        .enter()
+                        .append("text");
+                    
+                    var textLabels = textL
+                         .attr("x", function(d) { return cfg.TranslateX; })
+                         .attr("y", function(d,i) { return cfg.ExtraWidthY + 40*i; })
+                         .text( function (d) { return "" + d.axis + ": " + d.value +""; })
+                         .attr("font-size", "20px")
+                         .attr("class", "textLa")
+                         .style("fill-opacity", 0)
+                         .attr("fill", "rgb(200,200,200)")
+                         .transition()
+                         .duration(500)
+                         .attr("transform", function(d,i) {return "translate(" + (cfg.TranslateX-100) + "," + (0) + ")"})
+                         .style("fill-opacity", 1);
+                        
+//                        textLabels.transition()
+//                        .duration(200)
+//                        .style("fill-opacity", function(d,i) {return 1})
+//                        .attr("transform", function(d,i) {return "translate(" + (cfg.TranslateX-100) + "," + (0) + ")"});
+                        
                     });
+                    console.log(y);
+                    
+
+
+
 
                     series++;
                 });
@@ -281,9 +313,9 @@ function redraw(){
                     .on('mouseout', function(){
                         tooltip.transition(200)
                         .style('opacity', 0);
-                        g.selectAll("polygon")
-                        .transition(200)
-                        .style("fill-opacity", cfg.opacityArea);
+//                        g.selectAll("polygon")
+//                        .transition(200)
+//                        .style("fill-opacity", cfg.opacityArea);
                     })
                     .append("svg:title")
                     .text(function(j){
