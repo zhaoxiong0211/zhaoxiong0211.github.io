@@ -1,5 +1,5 @@
-var width = window.innerWidth,
-    height = window.innerHeight;
+var width = document.getElementById("canvas-svg").clientWidth,
+    height = document.getElementById("canvas-svg").clientHeight;
 
 var svg = d3.select("#canvas-svg").append("svg")
     .attr("width", width)
