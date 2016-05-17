@@ -1,0 +1,26 @@
+#rList {
+    position: absolute;
+    top: 20vh;
+    right: 20px;
+    height: 60vh;
+    width: 320px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(200,200,200);
+    background-color: rgba(255,255,255,0.5);
+    overflow: scroll;
+}
+
+.checkbox-inline {
+    color:darkgrey;
+    width: 100px;
+    float: left;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    margin-left: 5px; 
+}
+
+.checkbox-inline+.checkbox-inline{
+    margin-top: 10px;
+    margin-left: 5px; 
+}
