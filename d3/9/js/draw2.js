@@ -20,6 +20,11 @@ app.directive('geo', function(){
                     .range([4,10])
       
         var g = svg.append("g");
+      
+        // Define the div for the tooltip
+        var div = d3.select(el[0]).append("div")	
+            .attr("class", "tooltip")				
+            .style("opacity", 0);
 
         d3.json("./sfmaps/streets.json", function(error, sf) {
             if (error) return console.error(error);
@@ -40,6 +45,11 @@ app.directive('geo', function(){
             function update(){
                 if(!scope.data){ return };            
                 var data = scope.data;
+                var filters = scope.filterli || [];
+//                circles.transition()
+//                        .duration(200)
+//                        .style("opacity", 0);
+                
                 circles = circles.data(data)
                 circles.exit().remove();
 //                var circleCenter = circles.enter()
@@ -55,11 +65,34 @@ app.directive('geo', function(){
                       .attr("cy", function (d) { return projection([d.lon,d.lat])[1]; })
                       .attr("r", function (d) { return size(d.speedKmHr); })
                       .style("stroke", "black")
-                      .style("stroke-width", 0)
+//                      .style("opacity", 0)
+                      .style("stroke-width", function(d){
+                            idx = filters.indexOf(d.tag);
+                            console.log(idx, d.tag);
+                            if(idx === -1){
+                                return 0;
+                            }
+                            else{
+                                return 2;
+                            }
+                      })
                       .style("fill", function(d) { return "rgba(197,0,26,0.5)"; })
                       .on("mouseover", function(d,i){
-                            console.log(d)
-                        })
+                            div.transition()		
+                                .duration(200)		
+                                .style("opacity", .9);		
+                            div	.html("Route Tag: " + (d.tag) + "<br/>"  + "speedKmHr: " + d.speedKmHr)	
+                                .style("left", (d3.event.pageX) + "px")		
+                                .style("top", (d3.event.pageY - 28) + "px");	
+                      })
+                      .on("mouseout", function(d) {		
+                            div.transition()		
+                                .duration(500)		
+                                .style("opacity", 0);
+                      })
+//                      .transition()
+//                        .duration(200)
+//                        .style("opacity", 1);
             }
             
             console.log(scope.filterli)

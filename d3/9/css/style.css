@@ -62,3 +62,15 @@
     box-shadow:none;
 }
 
+
+div.tooltip {
+    color: rgb(20,20,20);
+/*    font-weight 600;*/
+    position: absolute;			
+    text-align: center;			
+    padding: 10px;				
+    font: 12px sans-serif;		
+    background: white;	
+    border: 2px solid rgb(20,20,20);		
+    pointer-events: none;			
+}
