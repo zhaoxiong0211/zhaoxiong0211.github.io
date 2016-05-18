@@ -6,19 +6,33 @@
 <title>Vehicle in SF</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 <link href="css/style.css" rel="stylesheet">
 <!--<link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>-->
 <style>
 
 </style>
 
-<body>
-    <div id="canvas-svg"></div>
-    <div id="rList"></div>
+<body ng-app="myApp" ng-controller="MainCtrl">
+    <div id="canvas-svg">
+        <geo data="vehicleData" filterli="filterList"></geo>
+    </div>
+    
+    <div id="rList">
+        <div id="titles">
+            <h1>Vehicle Position in San Francisco</h1>
+            <p>Latest Update: {{milliseconds | date:'medium'}}</p>
+        </div>
+        <input type="text" class="form-control" placeholder="Search a route tag..." ng-model="search.tag">
+        <ul class="list-group">
+          <li class="list-group-item" ng-attr-id="{{route.tag}}" ng-repeat="route in routeList | filter:search:strict" ng-click="routeClick($event)">{{route.tag}}</li>
+        </ul>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="js/draw.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/draw2.js"></script>
 
 </body>

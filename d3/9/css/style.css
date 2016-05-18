@@ -9,23 +9,56 @@
     left: 70vw;
     height: 100vh;
     width: 30vw;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(200,200,200);
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgb(54,54,54);
     overflow: scroll;
 }
 
-.checkbox-inline {
-    color:darkgrey;
-    width: 100px;
-    float: left;
-    margin-bottom: 0px;
-    margin-top: 10px;
-    margin-left: 5px; 
+#titles{
+   background-color: rgb(20,20,20) 
 }
 
-.checkbox-inline+.checkbox-inline{
-    margin-top: 10px;
-    margin-left: 5px; 
+#rList h1{
+    color:white;
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 20px;
 }
+
+#rList p{
+    font-style: italic;
+    color:gray;
+    text-align: center;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+}
+
+.list-group-item {
+    background-color: rgba(255,255,255,0);
+    color:white;
+    border:none;
+}
+
+.list-group-item:first-child,
+.list-group-item:last-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.list-group-item.active {
+    background-color: rgb(96,164,218);
+}
+
+.form-control{
+    border-radius: 0px;
+    font-style: italic;
+    color:lightgray;
+    background-color: rgba(255,255,255,0);
+    border: none;
+}
+
+.form-control:focus{
+    background-color: rgba(20,20,20,1);
+    box-shadow:none;
+}
+
