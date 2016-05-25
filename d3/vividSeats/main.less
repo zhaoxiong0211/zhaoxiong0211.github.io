@@ -1,0 +1,169 @@
+@color-darkBlack: rgb(68,68,68);
+@border-style: 2px solid rgb(212,212,212);
+@fullWidth: 600px;
+@fullHeight: 700px;
+@border-size: 2px;
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+form {
+    width:@fullWidth;
+    height:@fullHeight;
+    margin:auto;
+}
+
+section {
+    width: 100%;
+}
+
+.projectBarInfo {
+    height: 100px;
+    background-color: @color-darkBlack;
+    margin-bottom: 22px;
+    border-radius: 6px;
+}
+
+.projectBarInfo p {
+    color:white;
+    margin:auto;
+    text-align: center;
+    line-height: 100px;
+    font-size: 34px;
+}
+
+.arrow-down {
+    position: relative;
+    width: 0; 
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 14px solid @color-darkBlack;
+    left: 80%;
+}
+
+.mainProject {
+    height:475px;
+    margin-bottom: 23px;
+    border: @border-style;
+    -webkit-box-shadow: 0px 4px 0px 0px rgba(244,244,244,1);
+    -moz-box-shadow: 0px 4px 0px 0px rgba(244,244,244,1);
+    box-shadow: 0px 4px 0px 0px rgba(244,244,244,1);
+}
+
+.mainProject p {
+    font-weight: 400;
+    font-size:26px;
+    color: rgb(128,128,128);
+}
+
+.buttons {
+    height: 80px;
+}
+
+.bar {
+    height: 25px;
+    border-bottom: @border-style;
+}
+
+.projectBar {
+    height:100%;
+    background-color: rgb(212,95,57);
+}
+
+.projectInfo {
+    height: 390px;
+    width: 520px;
+    margin: 30px 40px 30px 40px;
+}
+
+.donatePart {
+    height:100px;
+}
+
+.donate {
+    font-family: 'Source Sans Pro', sans-serif;
+    border-radius: 6px;
+    float: left;
+    width: 236px;
+    height:100%;
+    font-size: 40px;
+}
+
+.donateInput {
+    color: rgb(68,68,68);
+    border: @border-style;
+    margin-right: 40px;
+}
+
+.dollarSign {
+    float:left;
+    width: 20%;
+    border: 0px;
+    height: 100%;
+}
+
+.dollarSign p {
+    font-size: 40px;
+    margin:0px;
+    text-align:center;
+    color: rgb(212,212,212);
+    line-height: 100px;
+}
+
+.moneyInput {
+    color:@color-darkBlack;
+    float:left;
+    width:calc(80%-@border-size);
+    height: calc(100%-@border-size);
+    background-color: rgb(255,255,255,0);
+    border: 0px;
+    font-size: 40px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.donateSubmit {
+    color: rgb(255,255,255);
+    border: 2px solid rgb(100,176,50);
+    background-color: rgb(106,188,53);
+}
+
+.donateSubmit:hover,
+.donateSubmit:active{
+    background-color: rgb(100,176,50);
+}
+
+.helpButton {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color:rgb(113,113,113);
+    width: 280px;
+    height: 100%;
+    background-color: rgb(250,250,250);
+    border: @border-style;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 4px 0px 0px rgb(212,212,212);
+    -moz-box-shadow: 0px 4px 0px 0px rgb(212,212,212);
+    box-shadow: 0px 4px 0px 0px rgb(212,212,212);
+}
+
+.helpButton:hover,
+.helpButton:active {
+    background-color: rgb(212,212,212);
+}
+
+.helpButton.save {
+    margin-right: 36px;
+}
+
+p.tip a{
+    font-style: italic;
+    color: rgb(86,158,211);
+    text-decoration: none;
+}
+
+p.tip a:hover{
+    color: rgb(100,176,50);
+}
