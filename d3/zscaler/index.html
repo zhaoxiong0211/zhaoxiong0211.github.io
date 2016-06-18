@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Todo List</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+    input[type=text]{
+        border-radius: 4px;
+        border: solid 1px lightgray;
+    }
+    button{
+        border-radius: 0px;
+        border: solid 1px lightgray;
+        background-color: white;
+    }
+    ul{
+        list-style-type: none;
+        padding: 0px;
+    }
+    .checked{
+        text-decoration: line-through;
+    }
+    
+    div.todoList{
+        display: inline-block;
+        position: absolute;
+        top:50%;
+        left:50%;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+</style>
+</head>
+<body>
+    <div class="todoList">
+        <input type="text" name="text" placeholder="Enter TODO Item..." id="todoInfo" onkeypress="return enterKey(event)">
+        <button id="enter">GO</button>
+        <ul id="todos"></ul>
+    </div>
+    
+<script>
+    var enter = document.getElementById("enter");
+    enter.addEventListener('click', addTodo);
+    
+    function enterKey(e){
+        if (e.keyCode == 13 || e.which == 13){
+            addTodo();
+        }
+    }
+    
+    function addTodo(){
+        var todoInfo = document.getElementById("todoInfo");
+        if(todoInfo.value !== ""){
+            var ul = document.getElementById("todos");
+            var li = document.createElement("li");
+            li.innerHTML = "<input type='checkbox' onclick='checkTodo(this)'>" + "<span>" + todoInfo.value + "</span>";
+            ul.appendChild(li);
+            todoInfo.value = "";
+        }
+    }
+    
+    function checkTodo(e){
+        if (e.checked){
+            e.nextSibling.classList.add("checked");
+        }
+        else{
+            e.nextSibling.classList.remove("checked");
+        }
+    }
+</script>
+    
+</body>
+</html>
