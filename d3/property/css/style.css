@@ -1,0 +1,83 @@
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
+#geoCard {
+    float: left;
+    height: 100vh;
+    width: 70vw;
+}
+
+#timeList {
+    float: left;
+    height: 100vh;
+    width: 30vw;
+    position: relative;
+/*    overflow: scroll;*/
+}
+
+#curTime {
+    display: inline-block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.detail_Q {
+    padding: 10px;
+    background-color: rgba(220,220,220,0.6);
+}
+
+.detail_D {
+    background-color: rgba(220,220,220,0.6);
+    text-align: right;
+    padding: 10px;
+}
+
+.detail_Q span {
+    color: rgb(237,28,36);
+    font-weight: 700;
+    font-size: 1.25em;
+}
+
+.detail_D span {
+    color: rgb(0,169,157);
+    font-weight: 700;
+    font-size: 1.25em;
+}
+
+/*
+li {
+    float: left;
+    list-style-type: none;
+    margin: 10px;
+}
+*/
+
+.land {
+    stroke: #333;
+    fill: none;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #333;
+}
+
+.tooltip {
+    color:black;
+    font-family: 'Oswald', sans-serif;
+    position: absolute;			
+    text-align: left;			
+    padding: 10px;				
+    background: rgba(220,220,220,0.6);	
+    pointer-events: none;			
+}
+
+#List {
+    display: none;
+}
