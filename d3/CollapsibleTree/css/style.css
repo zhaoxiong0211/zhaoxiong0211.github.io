@@ -1,0 +1,43 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#title {
+    height: 10vh;
+    margin-left: 10px;
+}
+
+#tree {
+    height:90vh;
+    width:100vw;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: rgb(12, 98, 97);
+    fill-opacity: 0.5;
+    stroke: rgb(12, 98, 97);
+}
+
+.node text {
+    font-size: 12px;
+}
+
+.link {
+    fill: none;
+    stroke: rgb(12, 98, 97);
+    stroke-opacity: 0.3;
+}
+
+.tooltip {
+    color:black;
+    font-size:12px;
+    position: absolute;			
+    text-align: left;			
+    padding: 10px;				
+    background: rgba(220,220,220,0.9);	
+    pointer-events: none;			
+}
